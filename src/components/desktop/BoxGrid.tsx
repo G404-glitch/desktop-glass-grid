@@ -32,9 +32,10 @@ export function BoxGrid({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const ro = new ResizeObserver(([entry]) => {
-      setSize({ width: entry.contentRect.width, height: entry.contentRect.height });
+    const ro = new ResizeObserver(() => {
+      setSize({ width: el.clientWidth, height: el.clientHeight });
     });
+    setSize({ width: el.clientWidth, height: el.clientHeight });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);

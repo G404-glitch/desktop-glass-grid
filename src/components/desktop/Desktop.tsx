@@ -36,11 +36,11 @@ export function Desktop({
   });
 
   const addAppBox = (files: File[]) => {
-    const apps: AppItem[] = files.map((f) => ({
-      id: uid(),
-      label: f.name.replace(/\.[^.]+$/, ""),
-      icon: f.type.startsWith("image/") ? URL.createObjectURL(f) : undefined,
-    }));
+    const apps: AppItem[] = files.map((f) => {
+      const item: AppItem = { id: uid(), label: f.name.replace(/\.[^.]+$/, "") };
+      if (f.type.startsWith("image/")) item.icon = URL.createObjectURL(f);
+      return item;
+    });
     setBoxes((prev) => [
       ...prev,
       { id: uid(), kind: "app", title: "Apps", rect: nextRect(), apps },
